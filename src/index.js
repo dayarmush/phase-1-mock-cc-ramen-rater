@@ -13,16 +13,8 @@ fetch('http://localhost:3000/ramens')
 .then(resp => resp.json())
 .then(ramenData => {
     ramenData.forEach(renderRamen);
+    ramenDisplay(ramenData[0])
 })
-
-//create a ramen obj
-const res = {
-    'name': '',
-    'image': '',
-    'restaurant': '',
-    'comment': '',
-    'rating': ''
-}
 
 //render the ramen to the 
 function renderRamen(ramen) {
@@ -31,19 +23,8 @@ function renderRamen(ramen) {
         menu.appendChild(menuImg)
 
         menuImg.addEventListener('click', e => {
-            console.log(e.target.id)
-            detailImg.src = e.target.src 
-            detailName.textContent = ramen.name
-            detailRes.textContent = ramen.restaurant
-            detailCom.textContent = ramen.comment
-            detailRating.textContent = ramen.rating
+            ramenDisplay(ramen)
         })
-
-        res.name = ramen.name
-        res.image = ramen.image
-        res.restaurant = ramen.restaurant
-        res.comment = ramen.comment
-        res.rating = ramen.rating
 }
 
 form.addEventListener('submit', e => {
@@ -65,4 +46,13 @@ form.addEventListener('submit', e => {
     form.reset()
     renderRamen(newRes)
 })
+
+//display ramen in center display
+function ramenDisplay(ramen) {
+    detailImg.src = ramen.image
+    detailName.textContent = ramen.name
+    detailRes.textContent = ramen.restaurant
+    detailCom.textContent = ramen.comment
+    detailRating.textContent = ramen.rating
+}
 
